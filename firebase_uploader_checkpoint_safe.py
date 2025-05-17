@@ -9,8 +9,7 @@ import time
 import os
 
 # 初始化 Firebase
-cred = credentials.Certificate("klin-76045-firebase-adminsdk-fbsvc-93aeb1d0ba.json")
-firebase_admin.initialize_app(cred)
+cred = credentials.Certificate("credentials.json")firebase_admin.initialize_app(cred)
 db = firestore.client()
 
 # 設定檔案路徑

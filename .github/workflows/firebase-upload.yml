@@ -29,7 +29,8 @@ jobs:
 
       - name: Run uploader
         env:
-          GOOGLE_APPLICATION_CREDENTIALS_JSON: $\{{ secrets.GOOGLE_APPLICATION_CREDENTIALS_JSON }}
+        GOOGLE_APPLICATION_CREDENTIALS_JSON: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS_JSON }}
         run: |
-          echo "$GOOGLE_APPLICATION_CREDENTIALS_JSON" > credentials.json
+          echo "$GOOGLE_APPLICATION_CREDENTIALS_JSON" | sed 's/\\n/\n/g' > credentials.json
           python firebase_uploader_checkpoint_safe.py
+

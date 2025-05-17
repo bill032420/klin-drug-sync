@@ -2,12 +2,13 @@
 
 on:
   schedule:
-    - cron: '0 20 1 * *'
+    - cron: '0 20 1 * *'  # 每月 1 號台灣早上 4 點 (UTC+8 = 20:00 UTC)
   workflow_dispatch:
 
 jobs:
   upload:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
@@ -20,17 +21,11 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
-      - name: Debug credential content
+      - name: Write Firebase credentials to file
         env:
           GOOGLE_APPLICATION_CREDENTIALS_JSON: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS_JSON }}
         run: |
-          echo "$GOOGLE_APPLICATION_CREDENTIALS_JSON" > credentials.json
-          head -n 5 credentials.json
-
-      - name: Run uploader
-        env:
-        GOOGLE_APPLICATION_CREDENTIALS_JSON: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS_JSON }}
-        run: |
           echo "$GOOGLE_APPLICATION_CREDENTIALS_JSON" | sed 's/\\n/\n/g' > credentials.json
-          python firebase_uploader_checkpoint_safe.py
 
+      - name: Run Firebase uploader
+        run: python firebase_uploader_checkpoint_safe.py

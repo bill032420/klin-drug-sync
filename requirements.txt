@@ -1,2 +1,6 @@
 ﻿firebase-admin
 requests
+pandas
+firebase-admin
+requests
+tqdm

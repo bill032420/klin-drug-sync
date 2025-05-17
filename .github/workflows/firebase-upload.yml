@@ -20,6 +20,13 @@ jobs:
       - name: Install dependencies
         run: pip install -r requirements.txt
 
+      - name: Debug credential content
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS_JSON: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS_JSON }}
+        run: |
+          echo "$GOOGLE_APPLICATION_CREDENTIALS_JSON" > credentials.json
+          head -n 5 credentials.json
+
       - name: Run uploader
         env:
           GOOGLE_APPLICATION_CREDENTIALS_JSON: $\{{ secrets.GOOGLE_APPLICATION_CREDENTIALS_JSON }}

@@ -24,7 +24,7 @@ if os.path.exists(checkpoint_file):
 
 # 讀取 CSV 並排除已註銷藥品
 csv_path = "台灣藥品許可證資料表.csv"
-df = pd.read_csv(csv_path)
+df = pd.read_csv(csv_path, encoding="utf-8-sig", low_memory=False)
 df_active = df[df['註銷狀態'].isna()].reset_index(drop=True)
 df_active = df_active[['中文品名', '英文品名', '主成分略述', '許可證字號']]
 
